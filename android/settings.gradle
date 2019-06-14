@@ -1,0 +1,3 @@
+rootProject.name = 'imageBank'
+
+include ':app'
