@@ -4,39 +4,63 @@ import {
   Text,
   TouchableOpacity,
   View,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import { withNavigation } from "react-navigation";
+import Img from "../assets/one.jpg";
 
 class QuickSearch extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
+    state = {
+      bgColor: this.props.bgColor,
+    };
   }
 
-  handleQuickSearch = term => {
+  handleQuickSearch = (term) => {
     this.props.navigation.navigate("SearchResults", {
-      term: term
+      term: term,
     });
   };
 
   render() {
     return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.main}
-        onPress={() => this.handleQuickSearch(this.props.catagory)}
-      >
-        <ImageBackground
-          source={{ uri: this.props.image }}
-          style={styles.image}
-          imageStyle={{ borderRadius: 15, opacity: 0.8 }}
-          resizeMode="cover"
+      <View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={[styles.main]}
+          onPress={() => this.handleQuickSearch(this.props.category)}
         >
-          <View style={styles.catagoryView}>
-            <Text style={styles.catagory}>{this.props.catagory}</Text>
+          <View
+            style={{
+              backgroundColor: this.props.bgColor,
+              borderRadius: 10,
+              padding: 30,
+              width: 200,
+            }}
+          >
+            <Text style={styles.category}>{this.props.category}</Text>
           </View>
-        </ImageBackground>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => this.handleQuickSearch(this.props.category)}
+          style={{
+            position: "absolute",
+            top: 60,
+            right: -30,
+          }}
+        >
+          <ImageBackground
+            source={{ uri: this.props.image }}
+            // source={Img}
+            style={styles.image}
+            imageStyle={{ borderRadius: 15 }}
+            resizeMode="cover"
+          ></ImageBackground>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -44,27 +68,26 @@ class QuickSearch extends Component {
 const styles = StyleSheet.create({
   main: {
     marginHorizontal: 20,
-    marginVertical: 15
+    marginVertical: 35,
   },
   image: {
-    width: "100%",
-    height: 60
+    width: 100,
+    height: 100,
   },
 
-  catagoryView: {
+  categoryView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 
-  catagory: {
-    fontSize: 20,
+  category: {
+    fontSize: 15,
     fontWeight: "bold",
     fontFamily: "monospace",
-    color: "white",
-    padding: 20,
-    opacity: 1
-  }
+    color: "#2d3436",
+    opacity: 1,
+  },
 });
 
 export default withNavigation(QuickSearch);

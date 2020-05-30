@@ -5,7 +5,7 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { withNavigation } from "react-navigation";
 import axios from "axios";
@@ -16,7 +16,7 @@ let page = 1;
 class SearchResults extends Component {
   state = {
     images: [],
-    isLoading: true
+    isLoading: true,
   };
 
   getImages = async (page = 1) => {
@@ -30,14 +30,14 @@ class SearchResults extends Component {
           params: { query: term, page: page, per_page: 20 },
           headers: {
             Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
+              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f",
+          },
         }
       );
 
       this.setState({
         images: [...this.state.images, ...response.data.results],
-        isLoading: false
+        isLoading: false,
       });
     } catch (err) {
       console.log("error ", err);
@@ -50,7 +50,7 @@ class SearchResults extends Component {
     this.getImages(page);
   };
 
-  download = item => {
+  download = (item) => {
     this.props.navigation.navigate("Download", { item: item });
   };
 
@@ -70,7 +70,7 @@ class SearchResults extends Component {
           <FlatList
             style={{ backgroundColor: "#576574" }}
             data={this.state.images}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
             numColumns={2}
             onEndReached={() => {
               this.getMore();
@@ -78,7 +78,7 @@ class SearchResults extends Component {
             onEndReachedThreshold={0.5}
             renderItem={({ item }) => (
               <TouchableOpacity
-                activeOpacity={0.7}
+                activeOpacity={0.8}
                 style={styles.list}
                 onPress={() => this.download(item)}
               >
@@ -111,23 +111,23 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#2c3e50",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   list: {
-    flex: 1
+    flex: 1,
   },
   noData: {
     flex: 1,
     paddingTop: 300,
     paddingBottom: 300,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   noDataText: {
     color: "white",
     fontSize: 20,
-    fontFamily: "sans-serif-thin"
-  }
+    fontFamily: "sans-serif-thin",
+  },
 });
 
 export default withNavigation(SearchResults);

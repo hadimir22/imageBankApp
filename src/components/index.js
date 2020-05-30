@@ -3,9 +3,10 @@ import {
   View,
   StyleSheet,
   Text,
+  ScrollView,
   StatusBar,
   NetInfo,
-  Image
+  Image,
 } from "react-native";
 import Search from "./search";
 import QuickSearch from "./quickSearch";
@@ -14,30 +15,39 @@ import { Pulse } from "react-native-loader";
 import axios from "axios";
 
 let colors = ["#22a6b3", "#6ab04c", "#16a085", "#2c3e50", "#006266", "#F97F51"];
+let cardColors = [
+  "#ff7675",
+  "#e67e22",
+  "#f9ca24",
+  "#01a3a4",
+  "#78e08f",
+  "#0fb9b1",
+];
 class Main extends Component {
   state = {
     bgImgURL: "",
     travelBgImg: "",
     catsBgImg: "",
     landscapeBgImg: "",
+    loveBgImg: "",
     foodBgImg: "",
     bgColor: "",
     connection: null,
-    isLoading: true
+    isLoading: false,
   };
 
   connCheck = () => {
-    NetInfo.isConnected.fetch().then(isConnected => {
+    NetInfo.isConnected.fetch().then((isConnected) => {
       this.setState({ connection: isConnected ? true : false });
     });
 
-    handleFirstConnectivityChange = isConnected => {
+    handleFirstConnectivityChange = (isConnected) => {
       if (isConnected) {
         this.getBgImg();
         this.setState({ connection: true });
       } else {
         this.setState({
-          connection: false
+          connection: false,
         });
       }
     };
@@ -50,69 +60,54 @@ class Main extends Component {
 
   getBgImg = async () => {
     try {
-      const response = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          headers: {
-            Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
-        }
-      );
-      const travelBgImg = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          params: { query: "travel" },
-          headers: {
-            Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
-        }
-      );
-      const catsBgImg = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          params: { query: "cat" },
-          headers: {
-            Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
-        }
-      );
-      const landscapeBgImg = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          params: { query: "landscape" },
-          headers: {
-            Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
-        }
-      );
-      const foodBgImg = await axios.get(
-        "https://api.unsplash.com/photos/random",
-        {
-          params: { query: "food" },
-          headers: {
-            Authorization:
-              "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f"
-          }
-        }
-      );
+      header = {
+        headers: {
+          Authorization:
+            "Client-ID 8d50a0bbf2407a181e3ad213d7ae31d70e8ff2b91321f3288bcbe7473e275e4f",
+        },
+      };
+      await axios
+        .all([
+          axios.get("https://api.unsplash.com/photos/random", header),
+          axios.get(
+            "https://api.unsplash.com/photos/random?query=travel",
+            header
+          ),
+          axios.get(
+            "https://api.unsplash.com/photos/random?query=love",
+            header
+          ),
+          axios.get(
+            "https://api.unsplash.com/photos/random?query=cats",
+            header
+          ),
+          axios.get(
+            "https://api.unsplash.com/photos/random?query=landscape",
+            header
+          ),
+          axios.get(
+            "https://api.unsplash.com/photos/random?query=food",
+            header
+          ),
+        ])
+        .then(
+          axios.spread((rand, travel, love, cats, landscape, food) => {
+            var min = 0;
+            var max = colors.length;
+            var randomIndex = Math.floor(Math.random() * (+max - +min)) + +min; //we only need index from 0-5
 
-      var min = 0;
-      var max = 5;
-      var randomIndex = Math.floor(Math.random() * (+max - +min)) + +min; //we only need index from 0-5
-
-      this.setState({
-        bgImgURL: response.data.urls.regular,
-        travelBgImg: travelBgImg.data.urls.regular,
-        catsBgImg: catsBgImg.data.urls.regular,
-        landscapeBgImg: landscapeBgImg.data.urls.regular,
-        foodBgImg: foodBgImg.data.urls.regular,
-        bgColor: colors[randomIndex],
-        isLoading: false
-      });
+            this.setState({
+              bgImgURL: rand.data.urls.regular,
+              travelBgImg: travel.data.urls.regular,
+              loveBgImg: love.data.urls.regular,
+              catsBgImg: cats.data.urls.regular,
+              landscapeBgImg: landscape.data.urls.regular,
+              foodBgImg: food.data.urls.regular,
+              bgColor: colors[randomIndex],
+              isLoading: false,
+            });
+          })
+        );
     } catch (err) {
       console.log("error ", err.message);
     }
@@ -137,36 +132,81 @@ class Main extends Component {
             <Text style={styles.noDataText}>No internet</Text>
           </View>
         ) : (
-          <View>
-            {this.state.isLoading && (
-              <View style={styles.loader}>
-                <Pulse size={100} color="white" />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Search
+              img={this.state.bgImgURL}
+              bgColor={
+                cardColors[
+                  Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                ]
+              }
+            />
+
+            <View
+              style={{
+                backgroundColor:
+                  colors[
+                    Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                  ],
+              }}
+            >
+              <Text style={styles.quickSearchText}> Quick Search </Text>
+
+              <View
+                style={{
+                  paddingBottom: 30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <QuickSearch
+                  category="Travel"
+                  bgColor={
+                    cardColors[
+                      Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                    ]
+                  }
+                  image={this.state.travelBgImg}
+                />
+                <QuickSearch
+                  category="Love"
+                  bgColor={
+                    cardColors[
+                      Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                    ]
+                  }
+                  image={this.state.loveBgImg}
+                />
+                <QuickSearch
+                  category="Cats"
+                  bgColor={
+                    cardColors[
+                      Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                    ]
+                  }
+                  image={this.state.catsBgImg}
+                />
+                <QuickSearch
+                  category="Landscape"
+                  bgColor={
+                    cardColors[
+                      Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                    ]
+                  }
+                  image={this.state.landscapeBgImg}
+                />
+                <QuickSearch
+                  category="Food"
+                  bgColor={
+                    cardColors[
+                      Math.floor(Math.random() * (+cardColors.length - +0)) + +0
+                    ]
+                  }
+                  image={this.state.foodBgImg}
+                />
               </View>
-            )}
-
-            {!this.state.isLoading && (
-              <View>
-                <Search img={this.state.bgImgURL} />
-
-                <View style={{ backgroundColor: this.state.bgColor }}>
-                  <Text style={styles.quickSearchText}> Quick Search </Text>
-
-                  <View style={{ paddingBottom: 20 }}>
-                    <QuickSearch
-                      catagory="Travel"
-                      image={this.state.travelBgImg}
-                    />
-                    <QuickSearch catagory="Cats" image={this.state.catsBgImg} />
-                    <QuickSearch
-                      catagory="Landscape"
-                      image={this.state.landscapeBgImg}
-                    />
-                    <QuickSearch catagory="Food" image={this.state.foodBgImg} />
-                  </View>
-                </View>
-              </View>
-            )}
-          </View>
+            </View>
+          </ScrollView>
         )}
       </View>
     );
@@ -176,13 +216,13 @@ class Main extends Component {
 const styles = StyleSheet.create({
   quickSearch: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   loader: {
     height: "100%",
     backgroundColor: "#2c3e50",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   quickSearchText: {
     fontSize: 18,
@@ -190,7 +230,7 @@ const styles = StyleSheet.create({
     fontFamily: "sans-serif-thin",
     color: "white",
     paddingVertical: 20,
-    textAlign: "center"
+    textAlign: "center",
   },
   noData: {
     flex: 1,
@@ -198,13 +238,13 @@ const styles = StyleSheet.create({
     paddingBottom: 300,
     backgroundColor: "#2c3e50",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   noDataText: {
     color: "white",
     fontSize: 20,
-    fontFamily: "sans-serif-thin"
-  }
+    fontFamily: "sans-serif-thin",
+  },
 });
 
 export default withNavigation(Main);
