@@ -1,4 +1,4 @@
-package com.imagebank;
+package com.theimagebank;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

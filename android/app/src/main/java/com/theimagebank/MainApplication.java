@@ -1,4 +1,4 @@
-package com.imagebank;
+package com.theimagebank;
 
 import android.app.Application;
 
