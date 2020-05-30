@@ -11,14 +11,18 @@ import {
 import Search from "./search";
 import QuickSearch from "./quickSearch";
 import { withNavigation } from "react-navigation";
-import { Pulse } from "react-native-loader";
 import axios from "axios";
 
 let colors = ["#22a6b3", "#6ab04c", "#16a085", "#2c3e50", "#006266", "#F97F51"];
 let cardColors = [
   "#ff7675",
   "#e67e22",
+  "#636e72",
   "#f9ca24",
+  "#b53471",
+  "#78e08f",
+  "#fdcb6e",
+  "#01a3a4",
   "#01a3a4",
   "#78e08f",
   "#0fb9b1",
@@ -32,7 +36,7 @@ class Main extends Component {
     loveBgImg: "",
     foodBgImg: "",
     bgColor: "",
-    connection: null,
+    connection: true,
     isLoading: false,
   };
 
