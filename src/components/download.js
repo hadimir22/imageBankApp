@@ -34,9 +34,9 @@ class Download extends Component {
         {
           title: "Permission to save images",
           message:
-            "Cool Photo App needs access to your storage " +
-            "so you can save awesome pictures.",
-          buttonNeutral: "Ask Me Later",
+            "Cool photo app needs access to your storage " +
+            "so you can download awesome images.",
+          buttonNeutral: "Ask me later",
           buttonNegative: "Cancel",
           buttonPositive: "OK",
         }
