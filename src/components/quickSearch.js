@@ -46,11 +46,7 @@ class QuickSearch extends Component {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => this.handleQuickSearch(this.props.category)}
-          style={{
-            position: "absolute",
-            top: 60,
-            right: -30,
-          }}
+          style={styles.imgStyle}
         >
           <ImageBackground
             source={{ uri: this.props.image }}
@@ -87,6 +83,11 @@ const styles = StyleSheet.create({
     fontFamily: "monospace",
     color: "#2d3436",
     opacity: 1,
+  },
+  imgStyle: {
+    position: "absolute",
+    top: 60,
+    right: -30,
   },
 });
 
