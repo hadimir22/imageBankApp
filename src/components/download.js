@@ -112,11 +112,7 @@ class Download extends Component {
               source={{
                 uri: this.state.item.urls.full,
               }}
-              style={{
-                width: "100%",
-                height: "100%",
-                justifyContent: "flex-end",
-              }}
+              style={styles.imgBgStyle}
               resizeMode="cover"
             >
               <View
@@ -130,16 +126,7 @@ class Download extends Component {
                   style={[styles.btn, { backgroundColor: this.state.btnColor }]}
                   onPress={this.download}
                 >
-                  <Text
-                    style={{
-                      color: "black",
-                      fontWeight: "bold",
-                      fontFamily: "sans-serif-thin",
-                      paddingRight: 10,
-                    }}
-                  >
-                    {this.state.btnText}
-                  </Text>
+                  <Text style={styles.btnTxt}>{this.state.btnText}</Text>
                   {this.state.downloading && (
                     <ActivityIndicator color="black" />
                   )}
@@ -174,6 +161,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 90,
     paddingVertical: 23,
     borderRadius: 15,
+  },
+  btnTxt: {
+    color: "black",
+    fontWeight: "bold",
+    fontFamily: "sans-serif-thin",
+    paddingRight: 10,
+  },
+  imgBgStyle: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-end",
   },
 });
 
