@@ -30,7 +30,7 @@ class Search extends Component {
           source={{
             uri: this.props.img,
           }}
-          style={styles.imgBgStyle}
+          style={styles.imgBg}
           resizeMode="cover"
         >
           <View style={styles.logoView}>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 10,
   },
-  imgBgStyle: {
+  imgBg: {
     width: "100%",
     height: 300,
     backgroundColor: this.props.bgColor,
