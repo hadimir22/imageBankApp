@@ -12,7 +12,6 @@ import Img from "../assets/one.jpg";
 class QuickSearch extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     state = {
       bgColor: this.props.bgColor,
     };

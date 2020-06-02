@@ -91,9 +91,7 @@ class Download extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     const item = navigation.getParam("item");
-    this.setState({ item: item, isLoading: false }, () => {
-      console.log("item is", this.state.item);
-    });
+    this.setState({ item: item, isLoading: false }, () => {});
     this.saveImage();
   }
 

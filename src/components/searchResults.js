@@ -46,7 +46,6 @@ class SearchResults extends Component {
 
   getMore = () => {
     page++;
-    console.log("page no", page);
     this.getImages(page);
   };
 
