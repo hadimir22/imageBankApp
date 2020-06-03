@@ -7,7 +7,6 @@ import {
   StyleSheet,
 } from "react-native";
 import { withNavigation } from "react-navigation";
-import Img from "../assets/one.jpg";
 
 class QuickSearch extends Component {
   constructor(props) {
@@ -49,7 +48,6 @@ class QuickSearch extends Component {
         >
           <ImageBackground
             source={{ uri: this.props.image }}
-            // source={Img}
             style={styles.image}
             imageStyle={{ borderRadius: 15 }}
             resizeMode="cover"
