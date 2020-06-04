@@ -73,8 +73,6 @@ class Download extends Component {
     config(options)
       .fetch("GET", url)
       .then((res) => {
-        console.log("Success Downloaded");
-
         ToastAndroid.show("Downloaded", ToastAndroid.SHORT);
         this.setState({
           downloading: false,
