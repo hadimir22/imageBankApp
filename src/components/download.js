@@ -81,7 +81,7 @@ class Download extends Component {
         });
       })
       .catch((err) => {
-        ToastAndroid.show("Something went wrong!", ToastAndroid.SHORT);
+        ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
       });
   };
 
@@ -110,11 +110,9 @@ class Download extends Component {
               style={styles.imgBgStyle}
               resizeMode="cover"
             >
-              <View
-                style={{ justifyContent: "flex-end", alignItems: "center" }}
-              >
+              <View style={styles.info}>
                 <Text style={{ color: "black", fontWeight: "bold" }}>
-                  Photo by: {this.state.item.user.first_name} on Unsplash{" "}
+                  Photo by: {this.state.item.user.first_name} on Unsplash
                 </Text>
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -167,6 +165,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "flex-end",
+  },
+  info: {
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
 });
 
