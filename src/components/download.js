@@ -111,7 +111,7 @@ class Download extends Component {
               resizeMode="cover"
             >
               <View style={styles.info}>
-                <Text style={{ color: "black", fontWeight: "bold" }}>
+                <Text style={styles.infoTxt}>
                   Photo by: {this.state.item.user.first_name} on Unsplash
                 </Text>
                 <TouchableOpacity
@@ -169,6 +169,10 @@ const styles = StyleSheet.create({
   info: {
     justifyContent: "flex-end",
     alignItems: "center",
+  },
+  infoTxt: {
+    color: "black",
+    fontWeight: "bold",
   },
 });
 
