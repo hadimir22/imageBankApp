@@ -96,7 +96,7 @@ class SearchResults extends Component {
                   resizeMode="contain"
                 />
                 <Text style={styles.noDataText}>
-                  Sorry, we found nothing, Try something else
+                  Sorry, nothing found, Try something else
                 </Text>
               </View>
             }
