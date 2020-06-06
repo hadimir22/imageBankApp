@@ -84,7 +84,7 @@ class SearchResults extends Component {
                 <Image
                   key={item.id}
                   source={{ uri: item.urls.small }}
-                  style={{ height: 150, width: "100%" }}
+                  style={styles.img}
                 />
               </TouchableOpacity>
             )}
@@ -92,7 +92,7 @@ class SearchResults extends Component {
               <View style={styles.noData}>
                 <Image
                   source={require("../assets/noImg.gif")}
-                  style={{ height: 150, width: "100%" }}
+                  style={styles.img}
                   resizeMode="contain"
                 />
                 <Text style={styles.noDataText}>
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "sans-serif-thin",
   },
+  img: { height: 150, width: "100%" },
 });
 
 export default withNavigation(SearchResults);
