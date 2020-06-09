@@ -13,7 +13,16 @@ import QuickSearch from "./quickSearch";
 import { withNavigation } from "react-navigation";
 import axios from "axios";
 
-let colors = ["#22a6b3", "#6ab04c", "#16a085", "#2c3e50", "#006266", "#F97F51"];
+let colors = [
+  "#22a6b3",
+  "#6ab04c",
+  "#16a085",
+  "#00cec9",
+  "#2c3e50",
+  "#006266",
+  "#1289A7",
+  "#F97F51",
+];
 let cardColors = [
   "#ff7675",
   "#e67e22",
