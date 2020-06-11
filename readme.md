@@ -14,6 +14,6 @@
 
 3.  react-native run-android
 
-### **Google Play Store link**
+### **Play Store link**
 
 > https://play.google.com/store/apps/details?id=com.theimagebank
